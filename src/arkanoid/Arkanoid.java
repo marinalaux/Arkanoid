@@ -1,21 +1,57 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package arkanoid;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+
 /**
- *
+ * Arkanoid
+ * 
  * @author Marina
  */
-public class Arkanoid {
+public class Arkanoid extends JFrame implements GameConstants {
+
+    /** Painel do jogo */
+    private GamePanel panel;
+    /** Gerenciador do jogo */
+    private Game game;
+    
+    public static void main(String[] args) {
+        Arkanoid arkanoid = new Arkanoid();
+        arkanoid.setVisible(true);
+        arkanoid.game.start();
+    }
 
     /**
-     * @param args the command line arguments
+     * Construtor do jogo
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public Arkanoid() {
+        super();
+        initGui();
+        game = new Game(panel);
+    }
+
+    /**
+     * Inicializa a interface do jogo
+     */
+    private void initGui() {
+        setTitle("Arkanoid");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(buildGamePanel());
+        pack();
+    }
+
+    /**
+     * Cria painel para o jogo
+     * 
+     * @return JComponent
+     */
+    private JComponent buildGamePanel() {
+        panel = new GamePanel();
+        panel.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
+        return panel;
     }
     
 }
